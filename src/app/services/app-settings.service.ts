@@ -15,10 +15,10 @@ interface AppSettings {
 
 @Injectable()
 export class AppSettingsService {
-  storeKey = `nanovault-appsettings`;
+  storeKey = `bademvault-appsettings`;
 
   settings: AppSettings = {
-    displayDenomination: 'mnano',
+    displayDenomination: 'badem',
     walletStore: 'localStorage',
     displayCurrency: 'USD',
     lockOnClose: 1,
@@ -64,9 +64,9 @@ export class AppSettingsService {
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
     this.settings = {
-      displayDenomination: 'mnano',
+      displayDenomination: 'badem',
       walletStore: 'localStorage',
-      displayCurrency: 'USD',
+      displayCurrency: '',
       lockOnClose: 1,
       lockInactivityMinutes: 30,
       powSource: 'best',

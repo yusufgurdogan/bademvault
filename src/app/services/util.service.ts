@@ -37,13 +37,10 @@ export class UtilService {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   };
-  nano = {
-    mnanoToRaw: mnanoToRaw,
-    knanoToRaw: knanoToRaw,
-    nanoToRaw: nanoToRaw,
-    rawToMnano: rawToMnano,
-    rawToKnano: rawToKnano,
-    rawToNano: rawToNano,
+  badem = {
+    bdmToRaw: bdmToRaw,
+    rawToRaw: rawToRaw,
+    rawToBdm: rawToBdm,
   };
 
 }
@@ -211,14 +208,14 @@ function getPublicAccountID(accountPublicKeyBytes) {
   const checksum = util.uint5.toString(util.uint4.toUint5(util.uint8.toUint4(blake.blake2b(keyBytes, null, 5).reverse())));
   const account = util.uint5.toString(util.uint4.toUint5(util.hex.toUint4(`0${accountHex}`)));
 
-  return `xrb_${account}${checksum}`;
+  return `bdm_${account}${checksum}`;
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('xrb_1') && !account.startsWith('xrb_3')) || account.length !== 64) throw new Error(`Invalid NANO Account`);
+  if ((!account.startsWith('bdm_1') && !account.startsWith('bdm_3')) || account.length !== 64) throw new Error(`Invalid BADEM Account`);
   const account_crop = account.substring(4,64);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
-  if (!isValid) throw new Error(`Invalid NANO account`);
+  if (!isValid) throw new Error(`Invalid BADEM account`);
 
   const key_uint4 = array_crop(uint5ToUint4(stringToUint5(account_crop.substring(0, 52))));
   const hash_uint4 = uint5ToUint4(stringToUint5(account_crop.substring(52, 60)));
@@ -233,26 +230,16 @@ function getAccountPublicKey(account) {
 /**
  * Conversion functions
  */
-const mnano = 1000000000000000000000000000000;
-const knano = 1000000000000000000000000000;
-const nano  = 1000000000000000000000000;
-function mnanoToRaw(value) {
-  return new BigNumber(value).times(mnano);
+const badem = 100;
+const raw = 1;
+function bdmToRaw(value) {
+  return new BigNumber(value).times(badem);
 }
-function knanoToRaw(value) {
-  return new BigNumber(value).times(knano);
+function rawToRaw(value) {
+  return new BigNumber(value).times(raw);
 }
-function nanoToRaw(value) {
-  return new BigNumber(value).times(nano);
-}
-function rawToMnano(value) {
-  return new BigNumber(value).div(mnano);
-}
-function rawToKnano(value) {
-  return new BigNumber(value).div(knano);
-}
-function rawToNano(value) {
-  return new BigNumber(value).div(nano);
+function rawToBdm(value) {
+  return new BigNumber(value).div(badem);
 }
 
 
@@ -306,12 +293,9 @@ const util = {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   },
-  nano: {
-    mnanoToRaw: mnanoToRaw,
-    knanoToRaw: knanoToRaw,
-    nanoToRaw: nanoToRaw,
-    rawToMnano: rawToMnano,
-    rawToKnano: rawToKnano,
-    rawToNano: rawToNano,
+  badem = {
+    bdmToRaw: bdmToRaw,
+    rawToRaw: rawToRaw,
+    rawToBdm: rawToBdm,
   }
 };

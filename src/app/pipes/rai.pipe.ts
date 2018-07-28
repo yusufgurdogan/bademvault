@@ -5,39 +5,37 @@ import {AppSettingsService} from "../services/app-settings.service";
   name: 'rai'
 })
 export class RaiPipe implements PipeTransform {
-  precision = 6;
+  precision = 2;
 
-  mrai = 1000000000000000000000000000000;
-  krai = 1000000000000000000000000000;
-  rai  = 1000000000000000000000000;
+  badem = 100;
+  // krai = 1000000000000000000000000000;
+  raw  = 1;
 
   transform(value: any, args?: any): any {
     const opts = args.split(',');
-    let denomination = opts[0] || 'mrai';
+    let denomination = opts[0] || 'badem';
     const hideText = opts[1] || false;
 
     switch (denomination.toLowerCase()) {
       default:
-      case 'xrb': return `${(value / this.mrai).toFixed(6)}${!hideText ? ' NANO': ''}`;
-      case 'mnano':
-        const hasRawValue = (value / this.rai) % 1;
+      // case 'xrb': return `${(value / this.mrai).toFixed(6)}${!hideText ? ' NANO': ''}`;
+      case 'badem':
+        const hasRawValue = (value / this.badem) % 1;
         if (hasRawValue) {
-          const newVal = value / this.mrai < 0.000001 ? 0 : value / this.mrai; // New more precise toFixed function, but bugs on huge raw numbers
-          return `${this.toFixed(newVal, this.precision)}${!hideText ? ' NANO': ''}`;
+          const newVal = value / this.badem < 0.01 ? 0 : value / this.badem; // New more precise toFixed function, but bugs on huge raw numbers
+          return `${this.toFixed(newVal, this.precision)}${!hideText ? ' BADEM': ''}`;
         } else {
-          return `${(value / this.mrai).toFixed(6)}${!hideText ? ' NANO': ''}`;
+          return `${(value / this.badem).toFixed(2)}${!hideText ? ' BADEM': ''}`;
         }
-      case 'knano': return `${(value / this.krai).toFixed(3)}${!hideText ? ' knano': ''}`;
-      case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
+      case 'badem': return `${(value / this.badem).toFixed(0)}${!hideText ? ' badem': ''}`;
+      // case 'nano': return `${(value / this.rai).toFixed(0)}${!hideText ? ' nano': ''}`;
       case 'raw': return `${value}${!hideText ? ' raw': ''}`;
       case 'dynamic':
-        const rai = (value / this.rai);
+        const rai = (value / this.raw);
         if (rai >= 1000000) {
-          return `${(value / this.mrai).toFixed(this.precision)}${!hideText ? ' mRai': ''}`;
-        } else if (rai >= 1000) {
-          return `${(value / this.krai).toFixed(this.precision)}${!hideText ? ' kRai': ''}`;
+          return `${(value / this.badem).toFixed(this.precision)}${!hideText ? ' mRai': ''}`;
         } else if (rai >= 0.00001) {
-          return `${(value / this.rai).toFixed(this.precision)}${!hideText ? ' Rai': ''}`;
+          return `${(value / this.raw).toFixed(this.precision)}${!hideText ? ' Rai': ''}`;
         } else if (rai === 0) {
           return `${value}${!hideText ? ' mRai': ''}`;
         } else {

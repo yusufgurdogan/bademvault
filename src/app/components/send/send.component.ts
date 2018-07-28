@@ -12,7 +12,7 @@ import {WorkPoolService} from "../../services/work-pool.service";
 import {AppSettingsService} from "../../services/app-settings.service";
 import {ActivatedRoute, ActivatedRouteSnapshot} from "@angular/router";
 import {PriceService} from "../../services/price.service";
-import {NanoBlockService} from "../../services/nano-block.service";
+import {BademBlockService} from "../../services/nano-block.service";
 
 const nacl = window['nacl'];
 
@@ -22,7 +22,7 @@ const nacl = window['nacl'];
   styleUrls: ['./send.component.css']
 })
 export class SendComponent implements OnInit {
-  nano = 1000000000000000000000000;
+  badem = 1;
 
   activePanel = 'send';
 
@@ -32,9 +32,7 @@ export class SendComponent implements OnInit {
   addressBookMatch = '';
 
   amounts = [
-    { name: 'NANO (1 Mnano)', shortName: 'NANO', value: 'mnano' },
-    { name: 'knano (0.001 Mnano)', shortName: 'knano', value: 'knano' },
-    { name: 'nano (0.000001 Mnano)', shortName: 'nano', value: 'nano' },
+    { name: 'BADEM (1 Badem)', shortName: 'BADEM', value: 'badem' },
   ];
   selectedAmount = this.amounts[0];
 
@@ -57,7 +55,7 @@ export class SendComponent implements OnInit {
     private addressBookService: AddressBookService,
     private notificationService: NotificationService,
     private nodeApi: ApiService,
-    private nanoBlock: NanoBlockService,
+    private bademBlock: BademBlockService,
     public price: PriceService,
     private workPool: WorkPoolService,
     public settings: AppSettingsService,
@@ -88,7 +86,7 @@ export class SendComponent implements OnInit {
     }
   }
 
-  // An update to the Nano amount, sync the fiat value
+  // An update to the Badem amount, sync the fiat value
   syncFiatPrice() {
     const rawAmount = this.getAmountBaseValue(this.amount || 0).plus(this.amountRaw);
     if (rawAmount.lte(0)) {
@@ -100,18 +98,18 @@ export class SendComponent implements OnInit {
     const precision = this.settings.settings.displayCurrency === 'BTC' ? 1000000 : 100;
 
     // Determine fiat value of the amount
-    const fiatAmount = this.util.nano.rawToMnano(rawAmount).times(this.price.price.lastPrice).times(precision).floor().div(precision).toNumber();
+    const fiatAmount = this.util.badem.rawToBdm(rawAmount).times(this.price.price.lastPrice).times(precision).floor().div(precision).toNumber();
     this.amountFiat = fiatAmount;
   }
 
-  // An update to the fiat amount, sync the nano value based on currently selected denomination
-  syncNanoPrice() {
+  // An update to the fiat amount, sync the badem value based on currently selected denomination
+  syncBademPrice() {
     const fiatAmount = this.amountFiat || 0;
-    const rawAmount = this.util.nano.mnanoToRaw(new BigNumber(fiatAmount).div(this.price.price.lastPrice));
-    const nanoVal = this.util.nano.rawToNano(rawAmount).floor();
-    const nanoAmount = this.getAmountValueFromBase(this.util.nano.nanoToRaw(nanoVal));
+    const rawAmount = this.util.badem.bdmToRaw(new BigNumber(fiatAmount).div(this.price.price.lastPrice));
+    const bademVal = this.util.badem.rawToRaw(rawAmount).floor();
+    const bademAmount = this.getAmountValueFromBase(this.util.badem.rawToRaw(bademVal));
 
-    this.amount = nanoAmount.toNumber();
+    this.amount = bademAmount.toNumber();
   }
 
   searchAddressBook() {
@@ -175,17 +173,17 @@ export class SendComponent implements OnInit {
     const rawAmount = this.getAmountBaseValue(this.amount || 0);
     this.rawAmount = rawAmount.plus(this.amountRaw);
 
-    const nanoAmount = this.rawAmount.div(this.nano);
+    const bademAmount = this.rawAmount.div(this.badem);
 
     if (this.amount < 0 || rawAmount.lessThan(0)) return this.notificationService.sendWarning(`Amount is invalid`);
-    if (nanoAmount.lessThan(1)) return this.notificationService.sendWarning(`Transactions for less than 1 nano will be ignored by the node.  Send raw amounts with at least 1 nano.`);
-    if (from.balanceBN.minus(rawAmount).lessThan(0)) return this.notificationService.sendError(`From account does not have enough XRB`);
+    if (rawAmount.lessThan(1)) return this.notificationService.sendWarning(`Transactions for less than 1 raw will be ignored by the node.  Send raw amounts with at least 1 raw.`);
+    if (from.balanceBN.minus(rawAmount).lessThan(0)) return this.notificationService.sendError(`From account does not have enough BADEM`);
 
     // Determine a proper raw amount to show in the UI, if a decimal was entered
-    this.amountRaw = this.rawAmount.mod(this.nano);
+    this.amountRaw = this.rawAmount.mod(this.badem);
 
     // Determine fiat value of the amount
-    this.amountFiat = this.util.nano.rawToMnano(rawAmount).times(this.price.price.lastPrice).toNumber();
+    this.amountFiat = this.util.badem.rawToBdm(rawAmount).times(this.price.price.lastPrice).toNumber();
 
     // Start precopmuting the work...
     this.fromAddressBook = this.addressBookService.getAccountName(this.fromAccountID);
@@ -203,7 +201,7 @@ export class SendComponent implements OnInit {
     this.confirmingTransaction = true;
 
     try {
-      const newHash = await this.nanoBlock.generateSend(walletAccount, this.toAccountID, this.rawAmount, this.walletService.isLedgerWallet());
+      const newHash = await this.bademBlock.generateSend(walletAccount, this.toAccountID, this.rawAmount, this.walletService.isLedgerWallet());
       if (newHash) {
         this.notificationService.sendSuccess(`Successfully sent ${this.amount} ${this.selectedAmount.shortName}!`);
         this.activePanel = 'send';
@@ -236,8 +234,8 @@ export class SendComponent implements OnInit {
 
     this.amountRaw = walletAccount.balanceRaw;
 
-    const nanoVal = this.util.nano.rawToNano(walletAccount.balance).floor();
-    const maxAmount = this.getAmountValueFromBase(this.util.nano.nanoToRaw(nanoVal));
+    const bademVal = this.util.badem.rawToRaw(walletAccount.balance).floor();
+    const maxAmount = this.getAmountValueFromBase(this.util.badem.rawToRaw(bademVal));
     this.amount = maxAmount.toNumber();
     this.syncFiatPrice();
   }
@@ -250,18 +248,14 @@ export class SendComponent implements OnInit {
 
     switch (this.selectedAmount.value) {
       default:
-      case 'nano': return this.util.nano.nanoToRaw(value);
-      case 'knano': return this.util.nano.knanoToRaw(value);
-      case 'mnano': return this.util.nano.mnanoToRaw(value);
+      case 'badem': return this.util.badem.bdmToRaw(value);
     }
   }
 
   getAmountValueFromBase(value) {
     switch (this.selectedAmount.value) {
       default:
-      case 'nano': return this.util.nano.rawToNano(value);
-      case 'knano': return this.util.nano.rawToKnano(value);
-      case 'mnano': return this.util.nano.rawToMnano(value);
+      case 'badem': return this.util.badem.rawToBdm(value);
     }
   }
 

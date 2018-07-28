@@ -10,7 +10,7 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {Router} from "@angular/router";
 import {RepresentativeService} from "./services/representative.service";
 import {NodeService} from "./services/node.service";
-import Nano from "hw-app-nano";
+import Badem from "hw-app-nano";
 import TransportU2F from "@ledgerhq/hw-transport-u2f";
 
 @Component({
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   };
   wallet = this.walletService.wallet;
   node = this.nodeService.node;
-  nanoPrice = this.price.price;
+  bademPrice = this.price.price;
   fiatTimeout = 5 * 60 * 1000; // Update fiat prices every 5 minutes
   inactiveSeconds = 0;
   windowHeight = 1000;
@@ -75,11 +75,11 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Listen for an xrb: protocol link, triggered by the desktop application
+    // Listen for an bdm: protocol link, triggered by the desktop application
     window.addEventListener('protocol-load', (e: CustomEvent) => {
       const protocolText = e.detail;
       const stripped = protocolText.split('').splice(4).join(''); // Remove xrb:
-      if (stripped.startsWith('xrb_')) {
+      if (stripped.startsWith('bdm_')) {
         this.router.navigate(['account', stripped]);
       }
       // Soon: Load seed, automatic send page?
@@ -110,12 +110,12 @@ export class AppComponent implements OnInit {
     const searchData = this.searchData.trim();
     if (!searchData.length) return;
 
-    if (searchData.startsWith('xrb_')) {
+    if (searchData.startsWith('bdm_')) {
       this.router.navigate(['account', searchData]);
     } else if (searchData.length === 64) {
       this.router.navigate(['transaction', searchData]);
     } else {
-      this.notifications.sendWarning(`Invalid Nano account or transaction hash!`)
+      this.notifications.sendWarning(`Invalid Badem account or transaction hash!`)
     }
     this.searchData = '';
   }

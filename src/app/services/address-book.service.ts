@@ -3,7 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class AddressBookService {
-  storeKey = `nanovault-addressbook`;
+  storeKey = `bademvault-addressbook`;
 
   addressBook = [];
 

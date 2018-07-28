@@ -1,8 +1,8 @@
 {
-  "name": "NanoVault",
+  "name": "BademVault",
   "version": "1.0.4",
   "license": "MIT",
-  "description": "Wallet for interacting with Nano",
+  "description": "Wallet for interacting with Badem",
   "author": "Andrew Steele",
   "main": "main.js",
   "scripts": {
@@ -81,9 +81,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-    "appId": "com.electron.nanovault",
+    "appId": "com.electron.bademvault",
     "buildVersion": "1.0.4",
-    "productName": "NanoVault",
+    "productName": "BademVault",
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",
@@ -94,9 +94,9 @@
       "extendInfo": {
         "CFBundleURLTypes": [
           {
-            "CFBundleURLName": "xrb",
+            "CFBundleURLName": "badem",
             "CFBundleURLSchemes": [
-              "xrb"
+              "badem"
             ]
           }
         ]
@@ -108,14 +108,14 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "cronoh",
-        "repo": "nanovault"
+        "owner": "yusufgurdogan",
+        "repo": "bademvault"
       }
     ],
     "protocols": {
-      "name": "xrb",
+      "name": "badem",
       "schemes": [
-        "xrb"
+        "badem"
       ],
       "role": "Viewer"
     }

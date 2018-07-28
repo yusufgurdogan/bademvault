@@ -28,13 +28,13 @@ import {WorkPoolService} from "./services/work-pool.service";
 import {ConfigureAppComponent} from "./components/configure-app/configure-app.component";
 import {AppSettingsService} from "./services/app-settings.service";
 import {WebsocketService} from "./services/websocket.service";
-import {NanoBlockService} from "./services/nano-block.service";
+import {BademBlockService} from "./services/nano-block.service";
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import {PriceService} from "./services/price.service";
 import { FiatPipe } from './pipes/fiat.pipe';
 import { ImportWalletComponent } from './components/import-wallet/import-wallet.component';
-import { NanoAccountIdComponent } from './components/helpers/nano-account-id/nano-account-id.component';
+import { BademAccountIdComponent } from './components/helpers/badem-account-id/badem-account-id.component';
 import {PowService} from "./services/pow.service";
 import { ImportAddressBookComponent } from './components/import-address-book/import-address-book.component';
 import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
@@ -64,7 +64,7 @@ import {LedgerService} from "./ledger.service";
     TransactionDetailsComponent,
     FiatPipe,
     ImportWalletComponent,
-    NanoAccountIdComponent,
+    BademAccountIdComponent,
     ImportAddressBookComponent,
     CurrencySymbolPipe,
     RepresentativesComponent,
@@ -88,7 +88,7 @@ import {LedgerService} from "./ledger.service";
     WorkPoolService,
     AppSettingsService,
     WebsocketService,
-    NanoBlockService,
+    BademBlockService,
     PriceService,
     PowService,
     RepresentativeService,

@@ -23,9 +23,9 @@ export class ConfigureWalletComponent implements OnInit {
 
   selectedImportOption = 'seed';
   importOptions = [
-    { name: 'Nano Seed', value: 'seed' },
-    { name: 'Nano Mnemonic Phrase', value: 'mnemonic' },
-    { name: 'NanoVault Wallet File', value: 'file' },
+    { name: 'Badem Seed', value: 'seed' },
+    { name: 'Badem Mnemonic Phrase', value: 'mnemonic' },
+    { name: 'BademVault Wallet File', value: 'file' },
     { name: 'Ledger Nano S', value: 'ledger' },
   ];
 
@@ -89,7 +89,7 @@ export class ConfigureWalletComponent implements OnInit {
     }
 
     if (this.ledger.status === LedgerStatus.LOCKED) {
-      return this.notifications.sendWarning(`Unlock your ledger device and open the Nano app to continue`);
+      return this.notifications.sendWarning(`Unlock your ledger device and open the Badem app to continue`);
     }
 
     if (refreshOnly) {
