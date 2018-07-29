@@ -293,7 +293,7 @@ const util = {
     generateSeedBytes: generateSeedBytes,
     getAccountPublicKey: getAccountPublicKey,
   },
-  badem = {
+  badem: {
     bdmToRaw: bdmToRaw,
     rawToRaw: rawToRaw,
     rawToBdm: rawToBdm,
