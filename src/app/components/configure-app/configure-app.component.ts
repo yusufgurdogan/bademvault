@@ -19,7 +19,7 @@ export class ConfigureAppComponent implements OnInit {
   wallet = this.walletService.wallet;
 
   denominations = [
-    { name: 'BADEM (1 Badem)', value: 'badem' },
+    { name: 'BADEM', value: 'badem' },
   ];
   selectedDenomination = this.denominations[0].value;
 

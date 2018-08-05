@@ -59,6 +59,7 @@
                         </div>
 
                       </div>
+                     <div style="display: none;">
                       <div class="uk-width-2-5">
                         <div class="uk-inline uk-width-1-1">
                           <button class="uk-button uk-button-secondary uk-width-1-1" type="button" style="text-transform: none;">{{ selectedAmount.shortName }}</button>
@@ -69,6 +70,7 @@
                           </div>
                         </div>
                       </div>
+                     </div>
 
                       <div *ngIf="amountRaw.gt(0)" class="uk-width-1-1 uk-width-3-5@m uk-text-center uk-text-small uk-text-muted uk-margin-remove">
                         +{{ amountRaw.toString(10) }} raw &nbsp; <a (click)="resetRaw()">remove</a>
