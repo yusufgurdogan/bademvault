@@ -20,7 +20,7 @@ export class AppSettingsService {
   settings: AppSettings = {
     displayDenomination: 'badem',
     walletStore: 'localStorage',
-    displayCurrency: 'USD',
+    displayCurrency: '',
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
