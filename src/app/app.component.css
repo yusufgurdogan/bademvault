@@ -38,7 +38,7 @@
 }
 
 .left-nav .active {
-  color: #6ccff5;
+  color: #000000;
 }
 
 .left-nav a {
@@ -46,7 +46,7 @@
 }
 
 .left-nav a:hover {
-  color: #6ccff5;
+  color: #000000;
 }
 
 .wallet-bar a {
