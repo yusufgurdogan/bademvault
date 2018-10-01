@@ -14,7 +14,7 @@ const STATE_BLOCK_PREAMBLE = '00000000000000000000000000000000000000000000000000
 
 @Injectable()
 export class BademBlockService {
-  representativeAccount = 'bdm_1i8aw9e8hpjjfub61m6cf7j6zz9zj37iopxkffehha84hi91akjn1n9s51fg'; // BademVault Representative
+  representativeAccount = 'bdm_38regm4qcthdwm9w5urp7o6cy6tj5cp14ekjhoptocp74nxinsd9bdhe3adu'; // 2nd representative
 
   constructor(
     private api: ApiService,
