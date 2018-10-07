@@ -1,36 +1,14 @@
-# NanoVault
-
-NanoVault is a fully client-side signing wallet for sending and receiving [Nano](https://github.com/nanocurrency/raiblocks) 
-on your [desktop](https://github.com/cronoh/nanovault/releases) or [in your browser](https://nanovault.io)
-
-![NanoVault Screenshot](https://s3-us-west-2.amazonaws.com/nanovault.io/NanoVault-Preview.png)
+# BademVault
+Open source wallet for using the Badem cryptocurrency:
+<a href="https://vault.badem.io">vault.badem.io</a>
+![BademVault Screenshot](https://badem.io/bademvault.png)
 ___
 
 # Table of Contents
-* [Install](#install-nanovault)
-* [Bugs/Feedback](#bugsfeedback)
 * [Application Structure](#application-structure)
 * [Development Prerequisites](#development-prerequisites)
 * [Development Guide](#development-guide)
 * [Acknowledgements](#acknowledgements)
-
-
-# Install NanoVault
-NanoVault is available on your desktop (Windows/Mac/Linux) - just head over to the [releases section](https://github.com/cronoh/nanovault/releases) and download the latest version for your OS.
-
-You can also use NanoVault from any device on the web at [nanovault.io](https://nanovault.io)
-
-
-# Bugs/Feedback
-If you run into any issues, please use the [GitHub Issue Tracker](https://github.com/cronoh/nanovault/issues) or head over to our [Discord Server](https://discord.gg/kCeAuJM)!  
-We are continually improving and adding new features based on the feedback you provide, so please let your opinions be known!
-
-To get an idea of some of the things that are planned for the near future, check out the [Road Map](https://github.com/cronoh/nanovault/wiki/Road-Map).
-
-___
-
-#### Everything below is only for contributing to the development of NanoVault
-#### To download NanoVault go to the [releases section](https://github.com/cronoh/nanovault/releases), or use the web wallet at [nanovault.io](https://nanovault.io)
 
 ___
 
@@ -38,9 +16,9 @@ ___
 
 The application is broken into a few separate pieces:
 
-- [NanoVault](https://github.com/cronoh/nanovault) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
-- [NanoVault-Server](https://github.com/cronoh/nanovault-server) - Serves the Wallet UI and brokers public communication between the wallet and the Nano Node.
-- [NanoVault-WS](https://github.com/cronoh/nanovault-ws) - Websocket server that receives new blocks from the Nano node and sends them in real time to the wallet ui.
+- [BademVault](https://github.com/bademcurrency/bademvault) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
+- [BademVault-Server](https://github.com/bademcurrency/bademvault-server) - Serves the Wallet UI and brokers public communication between the wallet and the Badem Node.
+- [BademVault-WS](https://github.com/bademcurrency/bademvault-ws) - Websocket server that receives new blocks from the Badem node and sends them in real time to the wallet ui.
 
 
 # Development Prerequisites
@@ -51,8 +29,8 @@ The application is broken into a few separate pieces:
 # Development Guide
 #### Clone repository and install dependencies
 ```bash
-git clone https://github.com/cronoh/nanovault
-cd nanovault
+git clone https://github.com/bademcurrency/bademvault
+cd bademvault
 npm install
 ```
 
@@ -66,30 +44,11 @@ Build a production version of the wallet for web:
 ```bash
 npm run wallet:build
 ```
-
-Build a production version of the wallet for desktop: *(Required for all desktop builds)*
+to host it locally, you may use
 ```bash
-npm run wallet:build-desktop
+ng serve --host 0.0.0.0 --port 80 --disable-host-check
 ```
-
-## Desktop Builds
-
-*All desktop builds require that you have built a desktop version of the wallet before running!*
-
-Run the desktop wallet in dev mode:
-```bash
-npm run desktop:dev
-```
-
-Build the desktop wallet for your local OS (Will be in `dist-desktop`):
-```bash
-npm run desktop:local
-```
-
-Build the desktop wallet for Windows+Mac+Linux (May require dependencies for your OS [View them here](https://www.electron.build/multi-platform-build)):
-```bash
-npm run desktop:full
-```
+More info about "ng serve" commands: https://github.com/angular/angular-cli/wiki/serve
 
 ## Running unit tests
 
@@ -106,4 +65,4 @@ Special thanks to the following!
 - [dcposch/blakejs](https://github.com/dcposch/blakejs) - Blake2b Implementation
 - [dchest/tweetnacl-js](https://github.com/dchest/tweetnacl-js) - Cryptography Implementation
 
-If you have found NanoVault useful and are feeling generous, you can donate at `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`
+Special thanks to <a href="https://github.com/cronoh">cronoh</a> who created the <a href="https://github.com/cronoh/nanovault">NanoVault</a>. If you have found NanoVault useful and are feeling generous, you can donate at the following NANO address: `xrb_318syypnqcgdouy3p3ekckwmnmmyk5z3dpyq48phzndrmmspyqdqjymoo8hj`
