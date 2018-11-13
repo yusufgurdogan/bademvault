@@ -232,7 +232,7 @@ export class SendComponent implements OnInit {
     const walletAccount = this.walletService.wallet.accounts.find(a => a.id === this.fromAccountID);
     if (!walletAccount) return;
 
-    this.amountRaw = walletAccount.balanceRaw;
+    this.amountRaw = new BigNumber(0);
 
     const bademVal = this.util.badem.rawToRaw(walletAccount.balance).floor();
     const maxAmount = this.getAmountValueFromBase(this.util.badem.rawToRaw(bademVal));
