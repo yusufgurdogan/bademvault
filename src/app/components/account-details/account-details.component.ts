@@ -19,7 +19,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
   styleUrls: ['./account-details.component.css']
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
-  badem = 100;
+  badem = 1000000000000000000000000000;
 
   accountHistory: any[] = [];
   pendingBlocks = [];

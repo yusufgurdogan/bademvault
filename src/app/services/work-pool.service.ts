@@ -4,7 +4,7 @@ import {NotificationService} from "./notification.service";
 
 @Injectable()
 export class WorkPoolService {
-  storeKey = `bademvault-workcache`;
+  storeKey = `bademwallet-workcache`;
 
   cacheLength = 25;
   workCache = [];

@@ -208,12 +208,12 @@ function getPublicAccountID(accountPublicKeyBytes) {
   const checksum = util.uint5.toString(util.uint4.toUint5(util.uint8.toUint4(blake.blake2b(keyBytes, null, 5).reverse())));
   const account = util.uint5.toString(util.uint4.toUint5(util.hex.toUint4(`0${accountHex}`)));
 
-  return `bdm_${account}${checksum}`;
+  return `badem_${account}${checksum}`;
 }
 
 function getAccountPublicKey(account) {
-  if ((!account.startsWith('bdm_1') && !account.startsWith('bdm_3')) || account.length !== 64) throw new Error(`Invalid BADEM Account`);
-  const account_crop = account.substring(4,64);
+  if ((!account.startsWith('badem_1') && !account.startsWith('badem_3')) || account.length !== 66) throw new Error(`Invalid BADEM Account`);
+  const account_crop = account.substring(6,66);
   const isValid = /^[13456789abcdefghijkmnopqrstuwxyz]+$/.test(account_crop);
   if (!isValid) throw new Error(`Invalid BADEM account`);
 

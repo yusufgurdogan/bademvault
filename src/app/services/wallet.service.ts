@@ -46,8 +46,8 @@ export interface FullWallet {
 
 @Injectable()
 export class WalletService {
-  badem = 100;
-  storeKey = `nanovault-wallet`;
+  badem = 1000000000000000000000000000;
+  storeKey = `bademwallet-wallet`;
 
   wallet: FullWallet = {
     type: 'seed',
@@ -228,7 +228,7 @@ export class WalletService {
     const exportData = this.generateExportData();
     const base64Data = btoa(JSON.stringify(exportData));
 
-    return `https://vault.badem.io/import-wallet#${base64Data}`;
+    return `https://wallet.badem.io/import-wallet#${base64Data}`;
   }
 
   lockWallet() {

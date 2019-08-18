@@ -11,7 +11,7 @@ import {AddressBookService} from "../../services/address-book.service";
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent implements OnInit {
-  badem = 100;
+  badem = 1000000000000000000000000000;
 
   routerSub = null;
   transaction: any = {};

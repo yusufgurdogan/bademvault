@@ -7,7 +7,7 @@ import {AppSettingsService} from "../services/app-settings.service";
 export class RaiPipe implements PipeTransform {
   precision = 2;
 
-  badem = 100;
+  badem = 1000000000000000000000000000;
   // krai = 1000000000000000000000000000;
   raw  = 1;
 

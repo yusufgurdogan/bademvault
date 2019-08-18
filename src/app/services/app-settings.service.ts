@@ -15,7 +15,7 @@ interface AppSettings {
 
 @Injectable()
 export class AppSettingsService {
-  storeKey = `bademvault-appsettings`;
+  storeKey = `bademwallet-appsettings`;
 
   settings: AppSettings = {
     displayDenomination: 'badem',

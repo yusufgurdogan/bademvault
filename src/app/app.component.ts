@@ -75,11 +75,11 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Listen for an bdm: protocol link, triggered by the desktop application
+    // Listen for an badem: protocol link, triggered by the desktop application
     window.addEventListener('protocol-load', (e: CustomEvent) => {
       const protocolText = e.detail;
       const stripped = protocolText.split('').splice(4).join(''); // Remove xrb:
-      if (stripped.startsWith('bdm_')) {
+      if (stripped.startsWith('badem_')) {
         this.router.navigate(['account', stripped]);
       }
       // Soon: Load seed, automatic send page?
@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
     const searchData = this.searchData.trim();
     if (!searchData.length) return;
 
-    if (searchData.startsWith('bdm_')) {
+    if (searchData.startsWith('badem_')) {
       this.router.navigate(['account', searchData]);
     } else if (searchData.length === 64) {
       this.router.navigate(['transaction', searchData]);

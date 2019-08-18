@@ -1,7 +1,7 @@
-# BademVault
+# BademWallet
 Open source wallet for using the Badem cryptocurrency:
-<a href="https://vault.badem.io">vault.badem.io</a>
-![BademVault Screenshot](https://badem.io/bademvault.png)
+<a href="https://wallet.badem.io">wallet.badem.io</a>
+![BademWallet Screenshot](https://badem.io/bademwallet.png)
 ___
 
 # Table of Contents
@@ -16,9 +16,9 @@ ___
 
 The application is broken into a few separate pieces:
 
-- [BademVault](https://github.com/bademcurrency/bademvault) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
-- [BademVault-Server](https://github.com/bademcurrency/bademvault-server) - Serves the Wallet UI and brokers public communication between the wallet and the Badem Node.
-- [BademVault-WS](https://github.com/bademcurrency/bademvault-ws) - Websocket server that receives new blocks from the Badem node and sends them in real time to the wallet ui.
+- [BademWallet](https://github.com/bademcurrency/bademwallet) - The main wallet application (UI + Seed Generation/Block Signing/Etc).
+- [BademWallet-Server](https://github.com/bademcurrency/bademwallet-server) - Serves the Wallet UI and brokers public communication between the wallet and the Badem Node.
+- [BademWallet-WS](https://github.com/bademcurrency/bademwallet-ws) - Websocket server that receives new blocks from the Badem node and sends them in real time to the wallet ui.
 
 
 # Development Prerequisites
@@ -29,8 +29,8 @@ The application is broken into a few separate pieces:
 # Development Guide
 #### Clone repository and install dependencies
 ```bash
-git clone https://github.com/bademcurrency/bademvault
-cd bademvault
+git clone https://github.com/bademcurrency/bademwallet
+cd bademwallet
 npm install
 ```
 

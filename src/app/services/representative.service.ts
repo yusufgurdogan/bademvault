@@ -3,7 +3,7 @@ import {BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class RepresentativeService {
-  storeKey = `bademvault-representatives`;
+  storeKey = `bademwallet-representatives`;
 
   representatives$ = new BehaviorSubject([]);
   representatives = [];
@@ -84,23 +84,13 @@ export class RepresentativeService {
   // Default representatives list
   defaultRepresentatives = [
     {
-      id: 'bdm_18tonkzx77watkfesbt633smd3t6of77hy7fbbwabnh64h9ect9k889s9ice',
+      id: 'badem_15s44icoi67f6oc8rawyjw5e9au9bgswdtq36syb1cx7sk49eirybjdjsaxy',
       name: 'Official Rep 1',
       trusted: true,
     },
     {
-      id: 'bdm_38regm4qcthdwm9w5urp7o6cy6tj5cp14ekjhoptocp74nxinsd9bdhe3adu',
+      id: 'badem_3um4m89koshi9c3gfprbiapny1b5zshtzugh7yan9bwhx7emwqtg9wfd9nrw',
       name: 'Official Rep 2',
-      trusted: true,
-    },
-    {
-      id: 'bdm_3uuw7nzrnbp5d86ze4pefky1efq736kr94dbt4bnfszpwrxs7c7rezwqystt',
-      name: 'Official Rep 3',
-      trusted: true,
-    },
-    {
-      id: 'bdm_14mmatdj4rhqukt9ityymbaqdkiz5smww7uinkt4hw1rzknqepi496hr4zdf',
-      name: 'Official Rep 4',
       trusted: true,
     },
   ];

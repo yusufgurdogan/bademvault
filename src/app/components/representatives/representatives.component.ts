@@ -59,7 +59,7 @@ export class RepresentativesComponent implements OnInit {
     const representativesDetails = await this.getRepresentativesDetails(uniqueRepresentatives);
 
     // Build up the overview object for each representative
-    const totalSupply = new BigNumber(340282366920938463463374607431768211455);
+    const totalSupply = new BigNumber(340282366921);
     let representativesOverview = [];
 
     for (const representative of representativesDetails) {

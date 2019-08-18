@@ -25,7 +25,7 @@ export class ConfigureWalletComponent implements OnInit {
   importOptions = [
     { name: 'Badem Seed', value: 'seed' },
     { name: 'Badem Mnemonic Phrase', value: 'mnemonic' },
-    { name: 'BademVault Wallet File', value: 'file' },
+    { name: 'BademWallet Wallet File', value: 'file' },
     { name: 'Ledger Nano S', value: 'ledger' },
   ];
 

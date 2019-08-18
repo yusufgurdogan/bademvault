@@ -11,7 +11,7 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1000, height: 600, webPreferences: { webSecurity: false } });
   // const options = { extraHeaders: "pragma: no-cache\n" };
-  // mainWindow.loadURL('https://vault.badem.io', options);
+  // mainWindow.loadURL('https://wallet.badem.io', options);
   // mainWindow.loadURL('http://localhost:4200/');
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'dist/index.html'),
@@ -126,20 +126,20 @@ function getApplicationMenu() {
       submenu: [
         {
           label: 'View GitHub',
-          click () { loadExternal('https://github.com/yusufgurdogan/bademvault') }
+          click () { loadExternal('https://github.com/bademcurrency/bademwallet') }
         },
         {
           label: 'Submit Issue',
-          click () { loadExternal('https://github.com/yusufgurdogan/bademvault/issues/new') }
+          click () { loadExternal('https://github.com/bademcurrency/bademwallet/issues/new') }
         },
         {type: 'separator'},
         {
           type: 'normal',
-          label: `BademVault Version: ${autoUpdater.currentVersion}`,
+          label: `BademWallet Version: ${autoUpdater.currentVersion}`,
         },
         {
           label: 'View Latest Updates',
-          click () { loadExternal('https://github.com/yusufgurdogan/bademvault/releases') }
+          click () { loadExternal('https://github.com/bademcurrency/bademwallet/releases') }
         },
         {type: 'separator'},
         {
@@ -154,7 +154,7 @@ function getApplicationMenu() {
 
   if (process.platform === 'darwin') {
     template.unshift({
-      label: 'BademVault',
+      label: 'BademWallet',
       submenu: [
         {role: 'about'},
         {type: 'separator'},

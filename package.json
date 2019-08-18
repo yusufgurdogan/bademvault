@@ -1,5 +1,5 @@
 {
-  "name": "BademVault",
+  "name": "BademWallet",
   "version": "1.0.4",
   "license": "MIT",
   "description": "Wallet for interacting with Badem",
@@ -81,9 +81,9 @@
     "uikit": "^3.0.0-beta.40"
   },
   "build": {
-    "appId": "com.electron.bademvault",
+    "appId": "com.electron.bademwallet",
     "buildVersion": "1.0.4",
-    "productName": "BademVault",
+    "productName": "BademWallet",
     "copyright": "Copyright © 2018 Andrew Steele",
     "directories": {
       "output": "dist-desktop",
@@ -109,7 +109,7 @@
       {
         "provider": "github",
         "owner": "yusufgurdogan",
-        "repo": "bademvault"
+        "repo": "bademwallet"
       }
     ],
     "protocols": {

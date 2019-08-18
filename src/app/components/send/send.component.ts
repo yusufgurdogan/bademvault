@@ -22,7 +22,7 @@ const nacl = window['nacl'];
   styleUrls: ['./send.component.css']
 })
 export class SendComponent implements OnInit {
-  badem = 100;
+  badem = 1000000000000000000000000000;
 
   activePanel = 'send';
 
