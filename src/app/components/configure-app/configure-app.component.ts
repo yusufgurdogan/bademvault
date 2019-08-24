@@ -9,6 +9,8 @@ import {AddressBookService} from "../../services/address-book.service";
 import {ApiService} from "../../services/api.service";
 import {LedgerService, LedgerStatus} from "../../ledger.service";
 import BigNumber from "bignumber.js";
+import {WebsocketService} from "../../services/websocket.service";
+import {NodeService} from "../../services/node.service";
 
 @Component({
   selector: 'app-configure-app',
@@ -92,11 +94,27 @@ export class ConfigureAppComponent implements OnInit {
   ];
   selectedPoWOption = this.powOptions[0].value;
 
-  blockOptions = [
-    { name: 'Legacy Blocks', value: false },
-    { name: 'State Blocks', value: true },
+  serverOptions = [
+    { name: 'BademWallet', value: 'bademwallet' },
+    { name: 'Custom', value: 'custom' },
   ];
-  selectedBlockOption = this.blockOptions[0].value;
+  selectedServer = this.serverOptions[0].value;
+
+  serverConfigurations = [
+    {
+      name: 'bademwallet',
+      api: null,
+      ws: null,
+    },
+  ];
+
+  serverAPI = null;
+  serverNode = null;
+  serverWS = null;
+  minimumReceive = null;
+
+  showServerConfigs = () => this.selectedServer && this.selectedServer === 'custom';
+
 
   constructor(
     private walletService: WalletService,
@@ -107,6 +125,8 @@ export class ConfigureAppComponent implements OnInit {
     private api: ApiService,
     private ledgerService: LedgerService,
     private workPool: WorkPoolService,
+    private node: NodeService,
+    private websocket: WebsocketService,
     private price: PriceService) { }
 
   async ngOnInit() {
@@ -133,7 +153,16 @@ export class ConfigureAppComponent implements OnInit {
 
     const matchingPowOption = this.powOptions.find(d => d.value === settings.powSource);
     this.selectedPoWOption = matchingPowOption ? matchingPowOption.value : this.powOptions[0].value;
-    }
+
+    const matchingServerOption = this.serverOptions.find(d => d.value === settings.serverName);
+    this.selectedServer = matchingServerOption ? matchingServerOption.value : this.serverOptions[0].value;
+
+    this.serverAPI = settings.serverAPI;
+    this.serverNode = settings.serverNode;
+    this.serverWS = settings.serverWS;
+
+    this.minimumReceive = settings.minimumReceive;
+  }
 
   async updateDisplaySettings() {
     const newCurrency = this.selectedCurrency;
@@ -155,6 +184,7 @@ export class ConfigureAppComponent implements OnInit {
     let newPoW = this.selectedPoWOption;
 
     const resaveWallet = this.appSettings.settings.walletStore !== newStorage;
+    const reloadPending = this.appSettings.settings.minimumReceive != this.minimumReceive;
 
     if (this.appSettings.settings.powSource !== newPoW) {
       if (newPoW === 'clientWebGL' && !this.pow.hasWebGLSupport()) {
@@ -172,6 +202,7 @@ export class ConfigureAppComponent implements OnInit {
       lockOnClose: new Number(this.selectedLockOption),
       lockInactivityMinutes: new Number(this.selectedInactivityMinutes),
       powSource: newPoW,
+      minimumReceive: this.minimumReceive || null,
     };
 
     this.appSettings.setAppSettings(newSettings);
@@ -179,6 +210,59 @@ export class ConfigureAppComponent implements OnInit {
 
     if (resaveWallet) {
       this.walletService.saveWalletExport(); // If swapping the storage engine, resave the wallet
+    }
+    if (reloadPending) {
+      this.walletService.reloadBalances(true);
+    }
+  }
+
+  async updateServerSettings() {
+    const newSettings = {
+      serverName: this.selectedServer,
+      serverAPI: null,
+      serverNode: null,
+      serverWS: null,
+    };
+
+    if (this.serverAPI != null && this.serverAPI.trim().length > 1) {
+      if (this.serverAPI.startsWith('https://') || this.serverAPI.startsWith('http://')) {
+        newSettings.serverAPI = this.serverAPI;
+      } else {
+        return this.notifications.sendWarning(`Custom API Server has an invalid address.  Make sure to use the full address ie: https://api.wallet.badem.io/api/node-api`);
+      }
+    }
+
+    if (this.serverNode != null && this.serverNode.trim().length > 1) {
+      if (this.serverNode.startsWith('https://') || this.serverNode.startsWith('http://')) {
+        newSettings.serverNode = this.serverNode;
+      } else {
+        return this.notifications.sendWarning(`Custom Node Server has an invalid address.  Make sure to use the full address ie: http://127.0.0.1:2225`);
+      }
+    }
+
+    if (this.serverWS != null && this.serverWS.trim().length > 1) {
+      if (this.serverWS.startsWith('wss://') || this.serverWS.startsWith('ws://')) {
+        newSettings.serverWS = this.serverWS;
+      } else {
+        return this.notifications.sendWarning(`Custom Update Server has an invalid address.  Make sure to use the full address ie: wss://api.wallet.badem.io/`);
+      }
+    }
+
+    this.appSettings.setAppSettings(newSettings);
+    this.notifications.sendSuccess(`Server settings successfully updated, reconnecting to backend`);
+    this.node.node.status = false; // Directly set node to offline since API url changed.  Status will get set by reloadBalances
+
+    // Reload balances which triggers an api check + reconnect to websocket server
+    await this.walletService.reloadBalances();
+    this.websocket.forceReconnect();
+  }
+
+  // When changing the Server Config option, prefill values
+  serverConfigChange(newServer) {
+    const custom = this.serverConfigurations.find(c => c.name == newServer);
+    if (custom) {
+      this.serverAPI = custom.api;
+      this.serverWS = custom.ws;
     }
   }
 

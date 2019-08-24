@@ -11,6 +11,11 @@ interface AppSettings {
   lockOnClose: number;
   lockInactivityMinutes: number;
   powSource: PoWSource;
+  serverName: string;
+  serverAPI: string | null;
+  serverNode: string | null;
+  serverWS: string | null;
+  minimumReceive: string | null;
 }
 
 @Injectable()
@@ -24,6 +29,11 @@ export class AppSettingsService {
     lockOnClose: 1,
     lockInactivityMinutes: 30,
     powSource: 'best',
+    serverName: 'bademwallet',
+    serverAPI: null,
+    serverNode: null,
+    serverWS: null,
+    minimumReceive: null,
   };
 
   constructor() { }
@@ -70,6 +80,11 @@ export class AppSettingsService {
       lockOnClose: 1,
       lockInactivityMinutes: 30,
       powSource: 'best',
+      serverName: 'bademwallet',
+      serverNode: null,
+      serverAPI: null,
+      serverWS: null,
+      minimumReceive: null,
     };
   }
 
