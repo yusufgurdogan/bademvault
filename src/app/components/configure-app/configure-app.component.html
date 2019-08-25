@@ -23,24 +23,6 @@
 
             </div>
           </div>
-<div style="display: none;">
-          <div class="uk-width-1-1">
-            <div class="uk-form-horizontal">
-
-              <div class="uk-margin">
-                <label class="uk-form-label">Display Denomination <span uk-icon="icon: info;" uk-tooltip title="Change the default denomination used throughout the application when displaying Badem balances"></span></label>
-                <div class="uk-form-controls">
-
-                  <div class="uk-inline uk-width-1-1">
-                    <select class="uk-select" [(ngModel)]="selectedDenomination">
-                      <option *ngFor="let denomination of denominations" [value]="denomination.value">{{ denomination.name }}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-</div>
         </div>
       </div>
       <div class="uk-card-footer uk-text-right">
