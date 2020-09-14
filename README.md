@@ -48,7 +48,7 @@ to host it locally, you may use
 ```bash
 ng serve --host 0.0.0.0 --port 80 --disable-host-check
 ```
-More info about "ng serve" commands: https://github.com/angular/angular-cli/wiki/serve
+More info about "ng serve" commands: https://angular.io/cli/serve
 
 ## Running unit tests
 
